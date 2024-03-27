@@ -9,7 +9,7 @@ export const useUsersStore = defineStore('users', {
     actions: {
         async register(login, password) {
             this.retourFetch = []
-            let url = `http://localhost:3000/api/users/users`
+            let url = `http://localhost:3000/api/users`
             const { data } = await useFetch(url, {
                 method: 'POST',
                 body: JSON.stringify({ login, password })
@@ -21,7 +21,7 @@ export const useUsersStore = defineStore('users', {
         },
         async login(login, password) {
             this.retourFetch = []
-            let url = `http://localhost:3000/api/users/users?login=${login}&password=${password}`
+            let url = `http://localhost:3000/api/users?login=${login}&password=${password}`
             const { data } = await useFetch(url)
             .catch((e) => {
                 this.error = e

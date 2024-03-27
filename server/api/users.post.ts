@@ -12,14 +12,12 @@ export default defineEventHandler(async (event) => {
     const [login] = await connection.execute(`SELECT * FROM users WHERE login = '${body.login}'`)
     if(login.length > 0) return {status: 400, body: "login already exists"}
 
-    const [rows] = await connection.execute('SELECT MAX(id) as maxId FROM users')  
-
     const salt = 'itisasecretsalt'
     const hash = crypto.createHmac('sha512', salt)
     const hashedPassword = hash.update(body.password).digest('hex')
 
     let error = null;
-    await connection.execute(`INSERT INTO users (id, login, password, role) VALUES (${rows[0].maxId+1}, '${body.login}', '${hashedPassword}', 2)`)
+    await connection.execute(`INSERT INTO users (login, password, role) VALUES ('${body.login}', '${hashedPassword}', 2)`)
         .catch (err => {
             console.log(err)
             error = err;
