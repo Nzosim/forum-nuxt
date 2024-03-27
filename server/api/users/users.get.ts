@@ -1,4 +1,4 @@
-import { getConnection } from '~/utils/dbConnection'
+import { getConnection } from '~/server/sql/dbConnection'
 import url from 'url'
 import crypto from 'crypto'
 
