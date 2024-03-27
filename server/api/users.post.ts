@@ -19,7 +19,7 @@ export default defineEventHandler(async (event) => {
     const hashedPassword = hash.update(body.password).digest('hex')
 
     let error = null;
-    await connection.execute(`INSERT INTO users (id, login, password) VALUES (${rows[0].maxId+1}, '${body.login}', '${hashedPassword}')`)
+    await connection.execute(`INSERT INTO users (id, login, password, role) VALUES (${rows[0].maxId+1}, '${body.login}', '${hashedPassword}', 2)`)
         .catch (err => {
             console.log(err)
             error = err;

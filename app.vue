@@ -1,8 +1,8 @@
 <template>
   <div>
-    <NuxtLink to="/register" class="btn">Register</NuxtLink>
-    <NuxtLink to="/login" class="btn">Login</NuxtLink>
-    <NuxtLink to="/dashboard" class="btn">Dashboard user</NuxtLink>
+    <NuxtLink to="/users/register" class="btn">Register</NuxtLink>
+    <NuxtLink to="/users/login" class="btn">Login</NuxtLink>
+    <NuxtLink to="/users/dashboard" class="btn">Dashboard user</NuxtLink>
 
     <NuxtPage  />
   </div>

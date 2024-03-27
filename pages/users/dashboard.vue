@@ -17,7 +17,7 @@ getUser()
 const logout = async () => {
     const { reset } = await useSession()
     reset()
-    navigateTo('/login')
+    navigateTo('/users/login')
 }
 
 definePageMeta({
@@ -25,7 +25,7 @@ definePageMeta({
         const { session } = await useSession()
         const value = session.value.user
         if (!value) { 
-            return navigateTo('/login');
+            return navigateTo('/users/login');
         }
     }
 });
