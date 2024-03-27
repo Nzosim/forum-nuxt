@@ -1,7 +1,7 @@
 import { getConnection } from '~/server/sql/dbConnection'
 import crypto from 'crypto'
 
-
+// TODO : vérifier grâce à la session que l'utilisateur est bien admin pour créer une utilisateur admin
 export default defineEventHandler(async (event) => {
     const connection = await getConnection()
 
@@ -17,7 +17,8 @@ export default defineEventHandler(async (event) => {
     const hashedPassword = hash.update(body.password).digest('hex')
 
     let error = null;
-    await connection.execute(`INSERT INTO users (login, password, role) VALUES ('${body.login}', '${hashedPassword}', 2)`)
+    const querySQL = !body.admin ? `INSERT INTO users (login, password, role) VALUES ('${body.login}', '${hashedPassword}', 2)` : `INSERT INTO users (login, password, role) VALUES ('${body.login}', '${hashedPassword}', 1)`
+    await connection.execute(querySQL)
         .catch (err => {
             console.log(err)
             error = err;
