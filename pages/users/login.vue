@@ -3,7 +3,6 @@ import { useUsersStore } from '~/store/users.js'
 import { storeToRefs } from 'pinia'
 const usersStore = useUsersStore()
 const { login } = usersStore
-const { getRetourFetch } = storeToRefs(usersStore)
 const email = ref('')
 const password = ref('')
 </script>
@@ -14,8 +13,5 @@ const password = ref('')
         <input type="text" v-model="email" placeholder="Email">
         <input type="text" v-model="password" placeholder="Password">
         <button @click="login(email, password)">Login</button>
-    </div>
-    <div v-if="getRetourFetch.length !== 0">
-        <p>{{ getRetourFetch.body }}</p>
     </div>
 </template>

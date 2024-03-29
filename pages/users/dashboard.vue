@@ -4,9 +4,23 @@
         <p>Dashboard of {{ name }}</p>
         <button @click="logout">Logout</button>
     </div>
+    <button @click="seeChangePasswordForm = !seeChangePasswordForm">Change password</button>
+    <div v-if="seeChangePasswordForm">
+        <input type="password" placeholder="Old password" v-model="oldPassword">
+        <input type="password" placeholder="New password" v-model="newPassword">
+        <button @click="changePassword(name, oldPassword, newPassword)">Change password</button>
+    </div>
 </template>
 
 <script setup>
+import { useUsersStore } from '~/store/users.js'
+const usersStore = useUsersStore()
+const { changePassword } = usersStore
+
+const seeChangePasswordForm = ref(false)
+const oldPassword = ref('')
+const newPassword = ref('')
+
 const name = ref('')
 const getUser = async () => {
     const { session } = await useSession()

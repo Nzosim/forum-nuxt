@@ -1,5 +1,6 @@
 <template>
   <div>
+    <NuxtLink to="/" class="btn">Home page</NuxtLink>
     <NuxtLink to="/users/register" class="btn">Register</NuxtLink>
     <NuxtLink to="/users/login" class="btn">Login</NuxtLink>
     <NuxtLink to="/users/dashboard" class="btn">Dashboard user</NuxtLink>
