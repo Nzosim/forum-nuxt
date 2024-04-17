@@ -11,7 +11,6 @@ export const useForumsStore = defineStore('forums', {
             this.forums = []
             let baseUrl = `http://localhost:3000/api/`
             const { data } = await useFetch(`${baseUrl}/forums`)
-            console.log(data.value)
             data.value.body.forEach(async forum => {
                 let url = `${baseUrl}/sujets?forum_id=${forum.id}`
                 const { data } = await useFetch(url)

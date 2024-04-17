@@ -1,5 +1,6 @@
 <template>
     <div>
+        <NuxtLink :to="`/sujets/create/${id}`">Créer un sujet</NuxtLink>
         <h1>Sujets</h1>
         <div v-for="sujet in getSujets.body" :key="sujet.id">
             <NuxtLink :to="`/sujets/${sujet.id}`">

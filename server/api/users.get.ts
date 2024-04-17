@@ -21,6 +21,6 @@ export default defineEventHandler(async (event) => {
     if(user[0].password !== hashedPassword) return {status: 400, body: "Wrong password"}
 
     event.context.session.user = {}
-    event.context.session.user = user[0].login
+    event.context.session.user = user[0].id
     return {status: 200, body: "User connected"}
 })
