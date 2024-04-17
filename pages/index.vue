@@ -2,7 +2,7 @@
     <div>
         <h1>Forums</h1>
         <div v-for="forum in getForums" :key="forum.id">
-            <NuxtLink :to="`/forums/${forum.id}`">{{ forum.nom }},  Nombre de sujets : {{ forum.count }}</NuxtLink>
+            <NuxtLink :to="`/forums/${forum.id}`">{{ forum.nom }},  Nombre de sujets : {{ forum.nombre_de_sujets }}</NuxtLink>
         </div>
     </div>
 </template>

@@ -36,6 +36,7 @@ const create = async () => {
 
     const route = useRoute()
     const id = route.params.id;
-    createSubject(id, titre.value, contenu.value, value);
+    createSubject(id, titre.value, contenu.value, value.id);
+    return navigateTo(`/forums/${id}`);
 }
 </script>

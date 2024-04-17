@@ -1,5 +1,6 @@
 <template>
     <div>
+        <NuxtLink :to="`/messages/${id}`">Poster un message</NuxtLink>
         <h1>Messages</h1>
         <div v-for="sujet in getMessages.body" :key="sujet.id">
             <div>

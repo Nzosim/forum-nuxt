@@ -6,6 +6,8 @@
             <NuxtLink :to="`/sujets/${sujet.id}`">
                 <p>{{ sujet.titre }}</p>
                 <p>{{ new Date(sujet.date_crea) }}</p>
+                <p>Dernier message le {{ sujet.date_dernier_message }} par {{ sujet.auteur_dernier_message }}</p>
+                ----------
             </NuxtLink>
         </div>  
     </div>

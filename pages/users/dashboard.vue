@@ -24,7 +24,7 @@ const newPassword = ref('')
 const name = ref('')
 const getUser = async () => {
     const { session } = await useSession()
-    name.value = session.value.user
+    name.value = session.value.user.login
 }
 getUser()
 
