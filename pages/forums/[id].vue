@@ -1,29 +1,73 @@
 <template>
-    <div>
-        <NuxtLink :to="`/sujets/create/${id}`">Créer un sujet</NuxtLink>
-        <h1>Sujets</h1>
-        <div v-for="sujet in getSujets.body" :key="sujet.id">
-            <NuxtLink :to="`/sujets/${sujet.id}`">
-                <p>{{ sujet.titre }}</p>
-                <p>{{ new Date(sujet.date_crea) }}</p>
-                <p>Dernier message le {{ sujet.date_dernier_message }} par {{ sujet.auteur_dernier_message }}</p>
-                ----------
-            </NuxtLink>
-        </div>  
+  <div class="all_table">
+    <a href="/" class="mt-1 w-75">
+      <v-icon class="mb-1">mdi-arrow-left</v-icon> Liste des forums
+    </a>
+    <div class="w-75 d-flex justify-space-between">
+      <h1 class="my-7 w-75">Sujets</h1>
+      <v-btn
+        class="text-none mt-9"
+        min-width="92"
+        variant="outlined"
+        @click="navigateTo(`/sujets/create/${id}`)"
+      >
+        Créer un sujet</v-btn
+      >
     </div>
+    <v-table class="w-75 vtable">
+      <thead class="bg-grey-darken-4">
+        <tr>
+          <th class="text-left">Nom</th>
+          <th class="text-left">Date de création</th>
+          <th class="text-left">Dernier message</th>
+          <th class="text-left">Envoyé par</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          v-for="sujet in getSujets"
+          :key="sujet.id"
+          @click="navigateTo(`/sujets/${sujet.id}`)"
+        >
+          <td>{{ sujet.titre }}</td>
+          <td>{{ formatDate(sujet.date_crea) }}</td>
+          <td>{{ formatDate(sujet.date_dernier_message) }}</td>
+          <td>{{ sujet.auteur_dernier_message }}</td>
+        </tr>
+      </tbody>
+    </v-table>
+    <div>
+      <v-btn
+        class="text-none mt-9 mr-2"
+        min-width="92"
+        variant="outlined"
+        @click="previousPage()"
+      >
+        Page précédente</v-btn
+      >
+      <v-btn
+        class="text-none mt-9 ml-2"
+        min-width="92"
+        variant="outlined"
+        @click="nextPage()"
+      >
+        Prochaine page</v-btn
+      >
+    </div>
+  </div>
 </template>
 
 <script setup>
-import { useSujetsStore } from '~/store/sujets.js'
-import { storeToRefs } from 'pinia'
-const sujetsStore = useSujetsStore()
-const { fetchSujetsByForum } = sujetsStore
-const { getSujets } = storeToRefs(sujetsStore)
+import { useSujetsStore } from "~/store/sujets.js";
+import { storeToRefs } from "pinia";
+import { formatDate } from "~/utils/util.js";
 
-const route = useRoute()
+const sujetsStore = useSujetsStore();
+const { fetchSujetsByForum, nextPage, previousPage } = sujetsStore;
+const { getSujets } = storeToRefs(sujetsStore);
+
+const route = useRoute();
 const id = route.params.id;
 
-await fetchSujetsByForum(id)
+await fetchSujetsByForum(id);
 </script>
-
-

@@ -3,7 +3,9 @@ import { defineStore } from 'pinia'
 export const useSujetsStore = defineStore('sujets', {
     state: () => {
         return {
-            sujets: []
+            sujets: [],
+            currentPage: 1,
+            sujetsPerPage: 20
         }
     },
     actions: {
@@ -25,11 +27,20 @@ export const useSujetsStore = defineStore('sujets', {
                 body: JSON.stringify({ sujet_id: data.value.subject_id, contenu, author_id })
             }) 
             showToast(data.value.body, data.value.status)
+        },
+        previousPage() {
+            if(this.currentPage > 1) this.currentPage-- 
+        },
+        nextPage() {
+            if(this.currentPage < this.sujets.body.length / this.sujetsPerPage)
+                this.currentPage++
         }
     },
     getters: {
         getSujets: state => {
-            return state.sujets
+            const indexOfLastSubject = state.currentPage * state.sujetsPerPage
+            const indexOfFirsSubject = indexOfLastSubject - state.sujetsPerPage
+            return state.sujets.body.slice(indexOfFirsSubject, indexOfLastSubject)
         },
     }
 })

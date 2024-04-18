@@ -3,27 +3,43 @@ import { defineStore } from 'pinia'
 export const useMessagesStore = defineStore('messages', {
     state: () => {
         return {
-            messages: []
+            messages: [],
+            currentPage: 1,
+            messagesPerPage: 20,
+            url: "http://localhost:3000/api/messages"
         }
     },
     actions: {
         async fetchMessagesBySujets(id) {
-            let url = `http://localhost:3000/api/messages?sujet_id=${id}`
-            const { data } = await useFetch(url)
+            const { data } = await useFetch(this.url + `?sujet_id=${id}`)
             this.messages = data.value
         },
         async createMessage(sujet_id, contenu, author_id) {
-            let url_message = `http://localhost:3000/api/messages`
-            const { data } = await useFetch(url_message, {
+            const { data } = await useFetch(this.url, {
                 method: 'POST',
                 body: JSON.stringify({ sujet_id, contenu, author_id })
             }) 
             showToast(data.value.body, data.value.status)
+        },
+        async deleteMessage(id) {
+            const { data } = await useFetch(this.url + `?id=${id}`, {
+                method: 'DELETE'
+            })
+            showToast(data.value.body, data.value.status)
+        },
+        previousPage() {
+            if(this.currentPage > 1) this.currentPage-- 
+        },
+        nextPage() {
+            if(this.currentPage < this.messages.body.length / this.messagesPerPage)
+                this.currentPage++
         }
     },
     getters: {
         getMessages: state => {
-            return state.messages
+            const indexOfLastMessage = state.currentPage * state.messagesPerPage
+            const indexOfFirsMessage = indexOfLastMessage - state.messagesPerPage
+            return state.messages.body.slice(indexOfFirsMessage, indexOfLastMessage)
         },
     }
 })

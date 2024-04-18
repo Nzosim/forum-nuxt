@@ -1,46 +1,61 @@
 <script setup>
-import { useUsersStore } from '~/store/users.js'
-import { storeToRefs } from 'pinia'
-const usersStore = useUsersStore()
-const { register } = usersStore
-const email = ref('')
-const password = ref('')
+import { useUsersStore } from "~/store/users.js";
+const usersStore = useUsersStore();
+const { register } = usersStore;
+const email = ref("");
+const password = ref("");
 </script>
 
 <template>
-    <h1>Registration page</h1>
-    <div>
-        <input type="text" v-model="email" placeholder="Email">
-        <input type="text" v-model="password" placeholder="Password">
-        <button @click="register(email, password)">Register</button>
-    </div>
-</template>
+  <div>
+    <v-img
+      class="mx-auto my-6"
+      max-width="250"
+      src="~/assets/forum.png"
+    ></v-img>
 
-<style>
-* {
-    font-family: Arial, sans-serif;
-}
-h1 {
-    color: #333;
-}
-input {
-    margin: 10px;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-button {
-    padding: 5px 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f0f0f0;
-    cursor: pointer;
-}
-button:hover {
-    background-color: #e0e0e0;
-}
-p {
-    margin: 10px;
-    color: #333;
-}
-</style>
+    <v-card
+      class="mx-auto pa-12 pb-8"
+      elevation="8"
+      max-width="448"
+      rounded="lg"
+    >
+      <div class="text-subtitle-1 text-medium-emphasis">Email</div>
+
+      <v-text-field
+        v-model="email"
+        density="compact"
+        placeholder="exemple@test.fr"
+        prepend-inner-icon="mdi-email-outline"
+        variant="outlined"
+      ></v-text-field>
+
+      <div
+        class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between"
+      >
+        Mot de passe
+      </div>
+
+      <v-text-field
+        v-model="password"
+        :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
+        :type="visible ? 'text' : 'password'"
+        density="compact"
+        placeholder="**********"
+        prepend-inner-icon="mdi-lock-outline"
+        variant="outlined"
+        @click:append-inner="visible = !visible"
+      ></v-text-field>
+
+      <v-btn
+        class="mb-8 bg-blue"
+        size="large"
+        variant="tonal"
+        block
+        @click="register(email, password)"
+      >
+        Inscription
+      </v-btn>
+    </v-card>
+  </div>
+</template>

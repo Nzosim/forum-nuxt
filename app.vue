@@ -1,27 +1,23 @@
 <template>
-  <div>
-    <NuxtLink to="/" class="btn">Home page</NuxtLink>
-    <NuxtLink to="/users/register" class="btn">Register</NuxtLink>
-    <NuxtLink to="/users/login" class="btn">Login</NuxtLink>
-    <NuxtLink to="/users/dashboard" class="btn">Dashboard user</NuxtLink>
+  <div class="d-flex justify-space-between bg-grey-darken-4 elevation-24">
+    <a href="/"><img src="assets/forum.png" /></a>
 
-    <NuxtPage  />
+    <div class="w-25 d-flex justify-space-evenly text-h5 pt-6 font-weight-bold">
+      <a href="/users/register">Incription</a>
+      <a href="/users/login">Connexion</a>
+      <a href="/users/dashboard">Dashboard</a>
+    </div>
   </div>
+
+  <NuxtPage />
 </template>
 
-<style>
-.btn {
-  margin: 10px;
-  padding: 5px 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #f0f0f0;
-  cursor: pointer;
-  text-decoration: none;
-  color: #333;
+<style scoped>
+img {
+  width: 100px;
 }
-
-.btn:hover {
-  background-color: #e0e0e0;
+a {
+  text-decoration: none;
+  color: white;
 }
 </style>

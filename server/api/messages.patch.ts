@@ -1,7 +1,5 @@
 import { getConnection } from '~/server/sql/dbConnection'
 
-// TODO : pour le moment fonctionne avec un id, modifier pour fonctionner avec la session et empêcher de modifier un message qui n'appartient pas à 
-// l'utilisateur sauf pour les admins
 export default defineEventHandler(async (event) => {
     const connection = await getConnection()
 

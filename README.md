@@ -1,7 +1,8 @@
 npm install
 npm run dev
 
-# Le projet a été fait en utilisant XAMP : 
+# Le projet a été fait en utilisant XAMP :
+
 ```
 host: 'localhost',
 serveur: 'db'
@@ -10,7 +11,8 @@ mot de passe: 'root',
 database: 'projet'
 ```
 
-Dump de la base de données : 
+Dump de la base de données :
+
 ```
 -- Adminer 4.8.1 MySQL 11.2.2-MariaDB-1:11.2.2+maria~ubu2204 dump
 
