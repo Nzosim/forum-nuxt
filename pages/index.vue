@@ -29,6 +29,26 @@ const forumsStore = useForumsStore();
 const { fetchForum } = forumsStore;
 const { getForums } = storeToRefs(forumsStore);
 await fetchForum();
+
+onMounted(() => {
+  let ws;
+  const messages = ref([]);
+  const isSecure = window.location.protocol === "https:";
+  const url = (isSecure ? "wss://" : "ws://") + location.host + "/_ws";
+
+  if (ws) {
+    // Déjà connecté, on ferme la connexion existante
+    ws.close();
+  }
+
+  // Connexion au serveur
+  console.log("Connexion à", url, "...");
+  ws = new WebSocket(url);
+
+  ws.addEventListener("open", () => {
+    console.log("ws connecté!");
+  });
+});
 </script>
 
 <style>

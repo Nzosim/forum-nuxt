@@ -5,7 +5,8 @@ export const useSujetsStore = defineStore('sujets', {
         return {
             sujets: [],
             currentPage: 1,
-            sujetsPerPage: 20
+            sujetsPerPage: 20,
+            webSocket: new WebSocket("ws://localhost:3000/_ws")
         }
     },
     actions: {
@@ -26,6 +27,7 @@ export const useSujetsStore = defineStore('sujets', {
                 method: 'POST',
                 body: JSON.stringify({ sujet_id: data.value.subject_id, contenu, author_id })
             }) 
+            this.webSocket.send("reload_sujets");
             showToast(data.value.body, data.value.status)
         },
         previousPage() {

@@ -70,4 +70,14 @@ const route = useRoute();
 const id = route.params.id;
 
 await fetchSujetsByForum(id);
+
+let ws;
+const isSecure = window.location.protocol === "https:";
+const url = (isSecure ? "wss://" : "ws://") + location.host + "/_ws";
+ws = new WebSocket(url);
+
+ws.addEventListener("message", async (event) => {
+  const message = event.data;
+  if (message === "reload_sujets") await fetchSujetsByForum(id);
+});
 </script>
