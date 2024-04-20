@@ -27,6 +27,13 @@ export const useMessagesStore = defineStore('messages', {
             })
             showToast(data.value.body, data.value.status)
         },
+        async modifyMessage(id, contenu) {
+            const { data } = await useFetch(this.url, {
+                method: 'PATCH',
+                body: JSON.stringify({ id, contenu })
+            })
+            showToast(data.value.body, data.value.status)
+        },
         previousPage() {
             if(this.currentPage > 1) this.currentPage-- 
         },

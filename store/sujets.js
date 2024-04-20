@@ -32,6 +32,7 @@ export const useSujetsStore = defineStore('sujets', {
             if(this.currentPage > 1) this.currentPage-- 
         },
         nextPage() {
+            console.log(this.sujets)
             if(this.currentPage < this.sujets.body.length / this.sujetsPerPage)
                 this.currentPage++
         }

@@ -10,7 +10,9 @@ export default defineEventHandler(async (event) => {
     const [message] = await connection.execute(`SELECT * FROM messages WHERE id = '${body.id}'`)
     if(message.length === 0) return {status: 400, body: "Le message n'existe pas"}
 
-    const [update] = await connection.execute(`UPDATE messages SET contenu = '${body.contenu}' WHERE id = '${body.id}'`)
+    const date = new Date().toISOString()
+    console.log(date)
+    const [update] = await connection.execute(`UPDATE messages SET contenu = '${body.contenu}', date_modif = '${date}' WHERE id = '${body.id}'`)
     if(update.affectedRows === 0) return {status: 500, body: "Erreur lors de la modification du message"}
 
     return {status: 200, body: "Message modifié avec succès"}
