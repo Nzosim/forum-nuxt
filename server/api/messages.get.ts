@@ -6,8 +6,8 @@ export default defineEventHandler(async (event) => {
 
     const parsedUrl = url.parse(event._path, true)
     const query = parsedUrl.query
-    const sql = !query.sujet_id ? `SELECT * FROM messages` : `SELECT messages.id, messages.contenu, messages.date_crea, users.id as user_id, users.login FROM messages 
-        JOIN users ON messages.author_id = users.id WHERE sujet_id = ${query.sujet_id};`;
+    const sql = !query.sujet_id ? `SELECT * FROM messages` : `SELECT messages.id, messages.contenu, messages.date_crea, forum_id, users.id as user_id, users.login FROM messages 
+        JOIN users ON messages.author_id = users.id JOIN sujets on sujets.id = messages.sujet_id WHERE sujet_id = ${query.sujet_id};`;
 
     
     const [messages] = await connection.execute(sql)

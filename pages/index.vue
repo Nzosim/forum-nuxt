@@ -43,16 +43,19 @@ await fetchForum();
   cursor: pointer;
 }
 
-tbody tr:nth-child(even) {
+tbody tr:nth-child(even),
+.messages_item:nth-child(odd) {
   background-color: #eeeeee;
 }
 
-tbody tr:nth-child(even):hover {
+tbody tr:nth-child(even):hover,
+.messages_item:nth-child(odd):hover {
   background-color: white;
   transition: 0.3s;
 }
 
-tbody tr:nth-child(odd):hover {
+tbody tr:nth-child(odd):hover,
+.messages_item:nth-child(even):hover {
   background-color: #eeeeee;
   transition: 0.3s;
 }

@@ -4,7 +4,7 @@ export default defineEventHandler(async (event) => {
     const connection = await getConnection()
 
     const body = await readBody(event)
-    if(!body || !body.contenu || !body.sujet_id || !body.author_id) return {status: 400, body: "missing parameters"}
+    if(!body || !body.contenu || !body.sujet_id || !body.author_id) return {status: 400, body: "Il manque des informations pour créer un message"}
 
     let error = null;
     const date = new Date().toISOString()
@@ -15,5 +15,5 @@ export default defineEventHandler(async (event) => {
         })
 
     if(error) return {status: 500, body: error}
-    return {status: 200, body: "messages created"}
+    return {status: 200, body: "Message créé avec succès"}
 })

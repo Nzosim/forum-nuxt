@@ -21,3 +21,9 @@ a {
   color: white;
 }
 </style>
+
+<style>
+.all_table {
+  border-radius: 10px 10px;
+}
+</style>

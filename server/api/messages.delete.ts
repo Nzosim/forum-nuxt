@@ -8,7 +8,7 @@ export default defineEventHandler(async (event) => {
     const query = parsedUrl.query
     const sql = `DELETE FROM messages WHERE id = ${query.id};`;
     const [request] = await connection.execute(sql)
-    if(request.affectedRows === 0) return {status: 400, body: "message not found"}
+    if(request.affectedRows === 0) return {status: 400, body: "Message introuvable"}
 
-    return {status: 200, body: 'message supprimé'}
+    return {status: 200, body: 'Le message a bien été supprimé'}
 })
