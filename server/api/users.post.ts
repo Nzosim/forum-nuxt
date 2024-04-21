@@ -15,7 +15,8 @@ export default defineEventHandler(async (event) => {
     const hash = crypto.createHmac('sha512', salt)
     const hashedPassword = hash.update(body.password).digest('hex')
 
-    const querySQL = !body.admin ? `INSERT INTO users (login, password, role) VALUES ('${body.login}', '${hashedPassword}', 2)` : `INSERT INTO users (login, password, role) VALUES ('${body.login}', '${hashedPassword}', 1)`
+    const adminRole = body.isAdmin ? 1 : 2
+    const querySQL = `INSERT INTO users (login, password, role) VALUES ('${body.login}', '${hashedPassword}', ${adminRole})`
     await connection.execute(querySQL)
     return {status: 200, body: "Utilisateur créé avec succès"}
 })

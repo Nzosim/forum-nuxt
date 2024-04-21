@@ -3,11 +3,11 @@ import { showToast } from '~/utils/toast'
 
 export const useUsersStore = defineStore('users', {
     actions: {
-        async register(login, password) {
+        async register(login, password, isAdmin = false) {
             let url = `http://localhost:3000/api/users`
             const { data } = await useFetch(url, {
                 method: 'POST',
-                body: JSON.stringify({ login, password })
+                body: JSON.stringify({ login, password, isAdmin })
             })
             showToast(data.value.body, data.value.status)
         },

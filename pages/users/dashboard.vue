@@ -72,23 +72,94 @@
       Se déconnecter
     </v-btn>
   </v-card>
+
+  <v-card v-if="role === 1" class="mx-auto pa-5 w-75 mt-4" elevation="8">
+    <h3 class="mb-3">Espace ADMIN</h3>
+
+    <v-btn
+      v-if="!seeCreateAdminForm"
+      class="mb-2"
+      size="large"
+      variant="tonal"
+      color="green"
+      block
+      @click="seeCreateAdminForm = !seeCreateAdminForm"
+    >
+      Créer un nouvel admin
+    </v-btn>
+
+    <div v-if="seeCreateAdminForm">
+      <div class="text-subtitle-1 text-medium-emphasis">Email</div>
+
+      <v-text-field
+        v-model="email"
+        density="compact"
+        placeholder="exemple@test.fr"
+        prepend-inner-icon="mdi-email-outline"
+        variant="outlined"
+      ></v-text-field>
+
+      <div class="text-subtitle-1 text-medium-emphasis">Mot de passe</div>
+      <v-text-field
+        v-model="password"
+        :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
+        :type="visible ? 'text' : 'password'"
+        density="compact"
+        placeholder="**********"
+        prepend-inner-icon="mdi-lock-outline"
+        variant="outlined"
+        @click:append-inner="visible = !visible"
+      ></v-text-field>
+
+      <v-btn
+        size="large"
+        class="mb-8"
+        variant="tonal"
+        color="green"
+        block
+        @click="
+          register(email, password, true);
+          seeCreateAdminForm = false;
+        "
+      >
+        Valider
+      </v-btn>
+    </div>
+
+    <v-btn
+      v-if="!seeChangePasswordForm"
+      size="large"
+      variant="tonal"
+      color="red"
+      block
+      @click="logout"
+    >
+      Se déconnecter
+    </v-btn>
+  </v-card>
 </template>
 
 <script setup>
 import { showToast } from "~/utils/toast";
 import { useUsersStore } from "~/store/users.js";
 const usersStore = useUsersStore();
-const { changePassword } = usersStore;
+const { changePassword, register } = usersStore;
 
 const seeChangePasswordForm = ref(false);
 const oldPassword = ref("");
 const newPassword = ref("");
 const visible = ref(false);
 
+const seeCreateAdminForm = ref(false);
+const email = ref("");
+const password = ref("");
+
 const name = ref("");
+const role = ref("");
 const getUser = async () => {
   const { session } = await useSession();
   name.value = session.value.user.login;
+  role.value = session.value.user.role;
 };
 getUser();
 
