@@ -3,6 +3,25 @@
     <a :href="`/forums/${getMessages[0].forum_id}`" class="mt-1 w-75">
       <v-icon class="mb-1">mdi-arrow-left</v-icon> Liste des sujets
     </a>
+    <v-btn
+      v-if="user?.role === 1"
+      class="text-none mt-4 w-75"
+      min-width="92"
+      variant="outlined"
+      color="orange"
+      @click="
+        lockUnlockSubject(
+          getMessages[0].subject_id,
+          getMessages[0].isClosed === 1 ? true : false
+        )
+      "
+    >
+      {{
+        getMessages[0].isClosed
+          ? "Deverrouiller le sujet"
+          : "Verrouiller le sujet"
+      }}
+    </v-btn>
 
     <div class="w-75 messages_rep mt-3">
       <h3 class="bg-grey-darken-4 messages_rep_title">Message</h3>
@@ -25,6 +44,7 @@
     </div>
 
     <v-btn
+      v-if="isResponsePossible"
       class="text-none mt-4 w-75"
       min-width="92"
       variant="outlined"
@@ -147,6 +167,10 @@ const {
   modifyMessage,
 } = messagesStore;
 const { getMessages } = storeToRefs(messagesStore);
+
+import { useSujetsStore } from "~/store/sujets.js";
+const sujetsStore = useSujetsStore();
+const { lockUnlockSubject } = sujetsStore;
 
 const route = useRoute();
 const id = route.params.id;
