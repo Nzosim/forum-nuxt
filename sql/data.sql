@@ -24,7 +24,7 @@ CREATE TABLE `messages` (
   `date_crea` varchar(50) NOT NULL,
   `sujet_id` tinyint(4) NOT NULL,
   `author_id` tinyint(4) NOT NULL,
-  `date_modif` tinyint(4) DEFAULT NULL,
+  `date_modif` varchar(50) DEFAULT NULL,
   `citation_id` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
