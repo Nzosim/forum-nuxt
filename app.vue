@@ -1,3 +1,4 @@
+<!-- Barre de navigation du site web -->
 <template>
   <div class="d-flex justify-space-between bg-grey-darken-4 elevation-24">
     <a href="/"><img src="assets/forum.png" /></a>
