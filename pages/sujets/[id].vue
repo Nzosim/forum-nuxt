@@ -58,6 +58,7 @@
     <div class="w-75 mt-3 messages_rep">
       <h3 class="bg-grey-darken-4 messages_rep_title">Réponses</h3>
       <v-list-item
+        v-if="getMessages.length > 1"
         v-for="message in getMessages.slice(1)"
         :key="message.id"
         :subtitle="message.contenu"
@@ -120,6 +121,7 @@
           </v-btn>
         </div>
       </v-list-item>
+      <h4 v-else class="ma-5">Aucune réponse pour le moment</h4>
     </div>
     <div>
       <v-btn
