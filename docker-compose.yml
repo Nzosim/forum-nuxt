@@ -33,7 +33,7 @@ services:
       MYSQL_PASSWORD: projet
     volumes:
       - ./.db_data:/var/lib/mysql
-      - ./sql/data.sql:/docker-entrypoint-initdb.d/datadump.sql
+      # - ./sql/data.sql:/docker-entrypoint-initdb.d/datadump.sql
     ports:
       - "3306:3306"
     networks:
