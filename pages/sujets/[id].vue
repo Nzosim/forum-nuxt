@@ -13,7 +13,8 @@
         lockUnlockSubject(
           getMessages[0].subject_id,
           getMessages[0].isClosed === 1 ? true : false
-        )
+        );
+        getMessages[0].isClosed = !getMessages[0].isClosed;
       "
     >
       {{
@@ -44,7 +45,7 @@
     </div>
 
     <v-btn
-      v-if="isResponsePossible"
+      v-if="getMessages[0].isClosed === 0 && user"
       class="text-none mt-4 w-75"
       min-width="92"
       variant="outlined"
