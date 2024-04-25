@@ -6,15 +6,15 @@ export default defineWrappedResponseHandler(async (event) => {
 
   const parsedUrl = url.parse(event._path, true);
   const query = parsedUrl.query;
-  const sql = `DELETE FROM forums WHERE id = ${query.id};`;
+  const sql = `DELETE FROM sujets WHERE id = ${query.id};`;
   const [request] = await connection.execute(sql);
   if (request.affectedRows === 0)
-    return { status: 400, body: "Forum introuvable" };
+    return { status: 400, body: "Sujets introuvable" };
 
-  const [request_sujets] = await connection.execute(
-    `SELECT id FROM sujets WHERE forum_id = ${query.id};`
-  );
-  console.log(request_sujets.body);
+  await connection.execute(`DELETE FROM messages WHERE sujet_id = ${query.id};);
 
-  return { status: 200, body: "Le forum a bien été supprimé" };
+  return {
+    status: 200,
+    body: "Le sujets ainsi que tous ses messages ont bien été supprimé",
+  };
 });

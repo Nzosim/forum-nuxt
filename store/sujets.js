@@ -43,6 +43,13 @@ export const useSujetsStore = defineStore("sujets", {
       this.webSocket.send("reload_sujets");
       showToast(data.value.body, data.value.status);
     },
+    async deleteSubject(id) {
+      const { data } = await useFetch(this.url + `sujets?id=${id}`, {
+        method: "DELETE",
+      });
+      this.webSocket.send("reload_sujets");
+      showToast(data.value.body, data.value.status);
+    },
     previousPage() {
       if (this.currentPage > 1) this.currentPage--;
     },
