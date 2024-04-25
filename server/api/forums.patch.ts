@@ -1,7 +1,7 @@
-import { getConnection } from "~/server/sql/dbConnection";
+import { defineWrappedResponseHandler } from "../utils/mysql";
 
-export default defineEventHandler(async (event) => {
-  const connection = await getConnection();
+export default defineWrappedResponseHandler(async (event) => {
+  const connection = event.context.mysql;
 
   const body = await readBody(event);
   if (!body || !body.id || !body.name)

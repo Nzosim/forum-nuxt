@@ -1,8 +1,8 @@
-import { getConnection } from "~/server/sql/dbConnection";
 import url from "url";
+import { defineWrappedResponseHandler } from "../utils/mysql";
 
-export default defineEventHandler(async (event) => {
-  const connection = await getConnection();
+export default defineWrappedResponseHandler(async (event) => {
+  const connection = event.context.mysql;
 
   const parsedUrl = url.parse(event._path, true);
   const query = parsedUrl.query;
