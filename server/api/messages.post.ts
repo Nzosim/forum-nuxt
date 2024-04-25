@@ -10,6 +10,7 @@ export default defineWrappedResponseHandler(async (event) => {
       body: "Il manque des informations pour créer un message",
     };
 
+  // Création du message
   const date = new Date().toISOString();
   const sql = !body.citation_id
     ? `INSERT INTO messages (contenu, date_crea, sujet_id, author_id) VALUES ('${body.contenu}', '${date}', ${body.sujet_id}, ${body.author_id})`

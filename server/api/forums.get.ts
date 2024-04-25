@@ -3,6 +3,7 @@ import { defineWrappedResponseHandler } from "../utils/mysql";
 export default defineWrappedResponseHandler(async (event) => {
   const connection = event.context.mysql;
 
+  // Récupération des forums
   const [forums] =
     await connection.execute(`SELECT forums.id, forums.nom, COUNT(sujets.id) AS nombre_de_sujets
         FROM forums LEFT JOIN sujets ON forums.id = sujets.forum_id GROUP BY forums.id, forums.nom;`);

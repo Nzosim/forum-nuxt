@@ -11,6 +11,7 @@ export default defineWrappedResponseHandler(async (event) => {
   if (request.affectedRows === 0)
     return { status: 400, body: "Sujets introuvable" };
 
+  // Suppression des messages du sujet
   await connection.execute(`DELETE FROM messages WHERE sujet_id = ${query.id};`);
 
   return {

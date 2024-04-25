@@ -4,6 +4,7 @@ import { defineWrappedResponseHandler } from "../utils/mysql";
 export default defineWrappedResponseHandler(async (event) => {
   const connection = event.context.mysql;
 
+  // Récupération des messages d'un sujet
   const parsedUrl = url.parse(event._path, true);
   const query = parsedUrl.query;
   let sql = `SELECT messages.id, messages.contenu, messages.date_crea, messages.date_modif, messages.citation_id, sujets.id as subject_id, sujets.isClosed, forum_id, users.id as user_id, users.login FROM messages 

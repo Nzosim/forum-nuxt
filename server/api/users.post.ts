@@ -18,6 +18,7 @@ export default defineWrappedResponseHandler(async (event) => {
   if (login.length > 0)
     return { status: 400, body: "L'utilisateur existe déjà" };
 
+  // Création de l'utilisateur
   const salt = "itisasecretsalt";
   const hash = crypto.createHmac("sha512", salt);
   const hashedPassword = hash.update(body.password).digest("hex");

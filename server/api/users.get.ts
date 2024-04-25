@@ -14,15 +14,18 @@ export default defineWrappedResponseHandler(async (event) => {
       body: "Un login et un mot de passe sont requis pour se connecter",
     };
 
+  // Vérification si l'utilisateur est déjà connecté
   if (event.context.session.user)
     return { status: 400, body: "Vous êtes déjà connecté" };
 
+  // Vérification de l'existence de l'utilisateur
   const [user] = await connection.execute(
     `SELECT * FROM users WHERE login = '${query.login}'`
   );
   if (user.length === 0)
     return { status: 400, body: "Aucun utilisateur trouvé avec ce login" };
 
+  // Vérification du mot de passe
   const salt = "itisasecretsalt";
   const hash = crypto.createHmac("sha512", salt);
   const hashedPassword = hash.update(query.password).digest("hex");

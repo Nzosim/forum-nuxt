@@ -5,6 +5,7 @@ export default defineWrappedResponseHandler(async (event) => {
   const connection = event.context.mysql;
   const parsedUrl = url.parse(event._path, true);
   const query = parsedUrl.query;
+  // Récupération des sujets d'un forum, avec la date du dernier message et son auteur
   const urlSubject = `SELECT s.id, s.titre, s.date_crea, m.date_crea AS date_dernier_message, u.login AS auteur_dernier_message
     FROM sujets s
     LEFT JOIN (

@@ -10,11 +10,13 @@ export default defineWrappedResponseHandler(async (event) => {
       body: "Un ID est nécessaire pour modifier un forum",
     };
 
+  // Vérification de l'existence du sujet
   const [sujet] = await connection.execute(
     `SELECT * FROM sujets WHERE id = '${body.id}'`
   );
   if (sujet.length === 0) return { status: 400, body: "Le sujet n'existe pas" };
 
+  // Modification du sujet
   const [update] = await connection.execute(
     `UPDATE sujets SET isClosed = '${body.close ? 0 : 1}' WHERE id = ${body.id}`
   );

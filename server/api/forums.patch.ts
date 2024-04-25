@@ -10,12 +10,13 @@ export default defineWrappedResponseHandler(async (event) => {
       body: "Un ID et un nom sont requis pour modifier un forum",
     };
 
+    // Vérification de l'existence du forum
   const [forum] = await connection.execute(
     `SELECT * FROM forums WHERE id = '${body.id}'`
   );
   if (forum.length === 0) return { status: 400, body: "Le forum n'existe pas" };
 
-  let error = null;
+  // Modification du forum
   const [update] = await connection.execute(
     `UPDATE forums SET nom = '${body.name}' WHERE id = ${body.id}`
   );

@@ -4,6 +4,7 @@ import { defineWrappedResponseHandler } from "../utils/mysql";
 export default defineWrappedResponseHandler(async (event) => {
   const connection = event.context.mysql;
 
+  // Suppression du message
   const parsedUrl = url.parse(event._path, true);
   const query = parsedUrl.query;
   const sql = `DELETE FROM messages WHERE id = ${query.id};`;
