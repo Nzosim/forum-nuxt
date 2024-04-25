@@ -25,9 +25,8 @@ services:
       MYSQL_DATABASE: projet
       MYSQL_USER: projet
       MYSQL_PASSWORD: projet
-    # volumes:
-      # - ./.db_data:/var/lib/mysql
-      # - ./sql/data.sql:/docker-entrypoint-initdb.d/datadump.sql
+    volumes:
+      - ./.db_data:/var/lib/mysql
     ports:
       - "3306:3306"
     networks:
