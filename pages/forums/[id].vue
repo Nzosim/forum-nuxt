@@ -21,6 +21,7 @@
           <th class="text-left">Date de création</th>
           <th class="text-left">Dernier message</th>
           <th class="text-left">Envoyé par</th>
+          <th v-if="user && user.role === 1" class="text-left">Action</th>
         </tr>
       </thead>
       <tbody>
@@ -33,6 +34,11 @@
           <td>{{ formatDate(sujet.date_crea) }}</td>
           <td>{{ formatDate(sujet.date_dernier_message) }}</td>
           <td>{{ sujet.auteur_dernier_message }}</td>
+          <td v-if="user && user.role === 1">
+            <v-btn variant="tonal" @click="deleteSubject(sujet.id)">
+              Supprimer</v-btn
+            >
+          </td>
         </tr>
       </tbody>
     </v-table>
@@ -63,11 +69,16 @@ import { storeToRefs } from "pinia";
 import { formatDate } from "~/utils/util.js";
 
 const sujetsStore = useSujetsStore();
-const { fetchSujetsByForum, nextPage, previousPage } = sujetsStore;
+const { fetchSujetsByForum, nextPage, previousPage, deleteSubject } =
+  sujetsStore;
 const { getSujets } = storeToRefs(sujetsStore);
 
 const route = useRoute();
 const id = route.params.id;
+
+const user = ref("");
+const { session } = await useSession();
+user.value = session.value.user;
 
 await fetchSujetsByForum(id);
 
