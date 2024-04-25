@@ -17,7 +17,9 @@ export default defineWrappedResponseHandler(async (event) => {
         ) m2 ON m1.date_crea = m2.max_date AND m1.sujet_id = m2.sujet_id
     ) m ON s.id = m.sujet_id
     LEFT JOIN users u ON m.author_id = u.id
-    WHERE s.forum_id = ${query.forum_id}`;
+    WHERE s.forum_id = ${query.forum_id}
+    ORDER BY m.date_crea DESC;
+    `;
 
   const [sujets] = await connection.execute(urlSubject);
 
