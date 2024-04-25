@@ -1,18 +1,25 @@
-import { getConnection } from '~/server/sql/dbConnection'
-import url from 'url'
+import url from "url";
+import { defineWrappedResponseHandler } from "../utils/mysql";
 
-export default defineEventHandler(async (event) => {
-    const connection = await getConnection()
+export default defineWrappedResponseHandler(async (event) => {
+  const connection = event.context.mysql;
+  const parsedUrl = url.parse(event._path, true);
+  const query = parsedUrl.query;
+  const urlSubject = `SELECT s.id, s.titre, s.date_crea, m.date_crea AS date_dernier_message, u.login AS auteur_dernier_message
+    FROM sujets s
+    LEFT JOIN (
+        SELECT m1.*
+        FROM messages m1
+        INNER JOIN (
+            SELECT MAX(date_crea) AS max_date, sujet_id
+            FROM messages
+            GROUP BY sujet_id
+        ) m2 ON m1.date_crea = m2.max_date AND m1.sujet_id = m2.sujet_id
+    ) m ON s.id = m.sujet_id
+    LEFT JOIN users u ON m.author_id = u.id
+    WHERE s.forum_id = ${query.forum_id}`;
 
-    const parsedUrl = url.parse(event._path, true)
-    const query = parsedUrl.query
-    const urlSubject = `SELECT sujets.id, sujets.titre, sujets.date_crea, MAX(messages.date_crea) AS date_dernier_message, 
-                            (SELECT users.login FROM messages JOIN users ON messages.author_id = users.id WHERE messages.sujet_id = sujets.id 
-                            ORDER BY messages.date_crea DESC LIMIT 1) AS auteur_dernier_message FROM sujets JOIN messages ON sujets.id = messages.sujet_id 
-                            WHERE sujets.forum_id = ${query.forum_id} GROUP BY sujets.titre ORDER BY date_dernier_message DESC;`;
-    const sql = !query.forum_id ? `SELECT * FROM sujets` : urlSubject;
+  const [sujets] = await connection.execute(urlSubject);
 
-    const [sujets] = await connection.execute(sql)
-
-    return {status: 200, body: sujets}
-})
+  return { status: 200, body: sujets };
+});
