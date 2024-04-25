@@ -93,13 +93,44 @@
               >Supprimer</v-btn
             >
           </div>
+          <v-btn
+            v-if="user"
+            variant="outlined"
+            class="ml-2"
+            @click="navigateTo(`/messages/${id}?citation=${message.id}`)"
+            >Citer</v-btn
+          >
         </template>
+
         <div class="text-grey font-italic text-body-2 d-flex">
           <p>{{ formatDate(message.date_crea) }}</p>
           &nbsp;
           <p v-if="message.date_modif">
             - modifié le {{ formatDate(message.date_modif) }}
           </p>
+        </div>
+
+        <div v-if="message.citation_id">
+          <h5 class="mt-3">Citation de :</h5>
+          <v-list-item
+            v-if="getMessages.length > 1"
+            v-for="citation in [
+              getAllMessags.find((item) => item.id === message.citation_id),
+            ]"
+            :key="citation.id"
+            :subtitle="citation.contenu"
+            :title="citation.login"
+            class="pa-3 messages_item"
+          >
+            <template v-slot:prepend>
+              <v-avatar>
+                <img src="/assets/no_avatar.jpg" width="50px" />
+              </v-avatar>
+            </template>
+            <p class="text-grey font-italic text-body-2">
+              {{ formatDate(citation.date_crea) }}
+            </p>
+          </v-list-item>
         </div>
 
         <div class="mt-7 w-50" v-if="modifier === message.id">
@@ -169,7 +200,7 @@ const {
   deleteMessage,
   modifyMessage,
 } = messagesStore;
-const { getMessages } = storeToRefs(messagesStore);
+const { getMessages, getAllMessags } = storeToRefs(messagesStore);
 
 import { useSujetsStore } from "~/store/sujets.js";
 const sujetsStore = useSujetsStore();

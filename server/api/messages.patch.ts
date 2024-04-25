@@ -18,7 +18,6 @@ export default defineWrappedResponseHandler(async (event) => {
     return { status: 400, body: "Le message n'existe pas" };
 
   const date = new Date().toISOString();
-  console.log(date);
   const [update] = await connection.execute(
     `UPDATE messages SET contenu = '${body.contenu}', date_modif = '${date}' WHERE id = '${body.id}'`
   );

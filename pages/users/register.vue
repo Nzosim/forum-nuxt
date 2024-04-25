@@ -4,6 +4,7 @@ const usersStore = useUsersStore();
 const { register } = usersStore;
 const email = ref("");
 const password = ref("");
+const visible = ref(false);
 </script>
 
 <template>

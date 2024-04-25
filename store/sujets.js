@@ -33,7 +33,6 @@ export const useSujetsStore = defineStore("sujets", {
       showToast(data.value.body, data.value.status);
     },
     async lockUnlockSubject(id, close) {
-      console.log(id, close);
       const { data } = await useFetch(`${this.url}sujets`, {
         method: "PATCH",
         body: JSON.stringify({
@@ -42,14 +41,12 @@ export const useSujetsStore = defineStore("sujets", {
         }),
       });
       this.webSocket.send("reload_sujets");
-      console.log(data.value);
       showToast(data.value.body, data.value.status);
     },
     previousPage() {
       if (this.currentPage > 1) this.currentPage--;
     },
     nextPage() {
-      console.log(this.sujets);
       if (this.currentPage < this.sujets.body.length / this.sujetsPerPage)
         this.currentPage++;
     },

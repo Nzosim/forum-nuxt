@@ -10,17 +10,14 @@ export default defineWrappedResponseHandler(async (event) => {
       body: "Il manque des informations pour créer un message",
     };
 
-  let error = null;
   const date = new Date().toISOString();
-  await connection
-    .execute(
-      `INSERT INTO messages (contenu, date_crea, sujet_id, author_id) VALUES ('${body.contenu}', '${date}', ${body.sujet_id}, ${body.author_id})`
-    )
-    .catch((err) => {
-      console.log(err);
-      error = err;
-    });
+  const sql = !body.citation_id
+    ? `INSERT INTO messages (contenu, date_crea, sujet_id, author_id) VALUES ('${body.contenu}', '${date}', ${body.sujet_id}, ${body.author_id})`
+    : `
+    INSERT INTO messages (contenu, date_crea, sujet_id, author_id, citation_id) VALUES ('${body.contenu}', '${date}', ${body.sujet_id}, ${body.author_id}, ${body.citation_id})`;
+  await connection.execute(sql).catch((error: any) => {
+    return { status: 500, body: error };
+  });
 
-  if (error) return { status: 500, body: error };
   return { status: 200, body: "Message créé avec succès" };
 });
