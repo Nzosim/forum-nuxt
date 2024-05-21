@@ -1,8 +1,18 @@
+# Forum Nuxt développé pour un projet de cours
+
+## Le résumé du projet se trouve dans le fichier SIMONIN Enzo Nuxt.pdf
+
+## Quelques images du projet :
+![image](https://github.com/Nzosim/forum-nuxt/assets/76412171/53b42478-c55d-47c6-97e0-4cd3923a6f76)
+![image](https://github.com/Nzosim/forum-nuxt/assets/76412171/2701556a-f94e-4080-a26b-54e5780a0d70)
+![image](https://github.com/Nzosim/forum-nuxt/assets/76412171/38a529b9-9a5b-4561-bc5d-2ae556884ec7)
+
+
+## Installation 
 npm install
 npm run dev
 
-# Le projet a été fait en utilisant XAMP :
-
+## Le projet a été fait en utilisant XAMP :
 ```
 host: 'localhost',
 serveur: 'db'
@@ -11,8 +21,7 @@ mot de passe: 'root',
 database: 'projet'
 ```
 
-Dump de la base de données :
-
+## Dump de la base de données :
 ```
 -- Adminer 4.8.1 MySQL 11.2.2-MariaDB-1:11.2.2+maria~ubu2204 dump
 
