@@ -14,7 +14,7 @@
     "@pinia/nuxt": "^0.5.1",
     "bluebird": "^3.7.2",
     "crypto": "^1.0.1",
-    "mysql2": "^3.9.2",
+    "mysql2": "^3.9.8",
     "nuxt": "^3.11.1",
     "nuxt-server-utils": "^0.0.7",
     "pinia": "^2.1.7",
